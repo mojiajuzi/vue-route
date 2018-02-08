@@ -25,6 +25,16 @@
                     <p>{{todo.plan_start}}</p>
                     <p>{{todo.plan_end}}</p>
                     </div>
+                    <div>
+                        <el-switch
+                        v-model="todo.is_completed"
+                        :active-value="1"
+                        :inactive-value="0"
+                        @change="completedChange(todo.id,todo.is_completed)"
+                        active-color="#13ce66"
+                        inactive-color="#ff4949">
+                        </el-switch>
+                    </div>
                 </el-card>
                 </el-col>
         </el-row>
@@ -75,7 +85,16 @@ export default {
         },
         paginateChange(val) {
             console.log(val);
-            
+
+        },
+        completedChange(id, val) {
+          const url = "api/todos/" + id;
+          axios.put(url, {status: val})
+            .then(response => {
+              console.log(response.data);
+            }).catch(error => {
+              console.log("hehehe");
+            });
         }
     }
 }
