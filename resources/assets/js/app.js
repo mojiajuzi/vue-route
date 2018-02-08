@@ -11,7 +11,8 @@ import App from './views/App';
 import Hello from  './views/Hello';
 import Home from './views/Home';
 import UsersIndex from './views/UserIndex';
-import TodoCreate from './views/todos/Create'
+import TodoCreate from './views/todos/Create';
+import TodoIndex from './views/todos/Index';
 
 const router = new VueRouter({
     mode: 'history',
@@ -32,9 +33,14 @@ const router = new VueRouter({
             component: UsersIndex
         },
         {
-            path: "/todo",
+            path: "/todos/create",
             name: 'todos.create',
             component: TodoCreate
+        },
+        {
+            path: "/todos",
+            name: "todos.index",
+            component: TodoIndex
         }
     ],
 });

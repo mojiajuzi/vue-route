@@ -15,7 +15,8 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        $todo = Todo::orderBy("plan_start", "desc")->paginate();
+        return $todo;
     }
 
     /**

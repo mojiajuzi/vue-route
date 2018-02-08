@@ -25,3 +25,4 @@ Route::get('/users', function(){
 });
 
 Route::post("/todos", "TodoController@store");
+Route::get("/todos", "TodoController@index");

@@ -52,10 +52,10 @@
             //表单提交
             axios.post("/api/todos", this.form)
                 .then(response => {
-                    if(response.status){
-
+                    if(response.data.status){
+                      //TODO
                     }
-                    this.$message(response.msg)
+                    this.$message(response.data.msg)
                  }).catch(error => {
                    console.log(error.errors);
                  })
