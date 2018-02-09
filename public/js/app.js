@@ -92175,6 +92175,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -92184,7 +92186,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             todos: null,
             error: null,
             total: 0,
-            path: null
+            path: null,
+            page: 1,
+            pagesize: 3
         };
     },
     created: function created() {
@@ -92197,25 +92201,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.error = this.todos = null;
             this.loading = true;
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("/api/todos").then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("/api/todos", { params: {
+                    page: this.page
+                } }).then(function (response) {
                 _this.loading = false;
                 _this.todos = response.data.data;
                 _this.total = response.data.total;
                 _this.path = response.data.path;
+                _this.pagesize = response.data.per_page;
             }).catch(function (error) {
                 _this.loading = false;
                 _this.error = error.response.data.message || error.message;
             });
         },
         paginateChange: function paginateChange(val) {
-            console.log(val);
+            this.page = val;
+            this.fetchData();
         },
         completedChange: function completedChange(id, val) {
+            var _this2 = this;
+
             var url = "api/todos/" + id;
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put(url, { status: val }).then(function (response) {
-                console.log(response.data);
+                _this2.$message(response.data.msg);
             }).catch(function (error) {
-                console.log("hehehe");
+                //TODO
             });
         }
     }
@@ -92341,7 +92351,12 @@ var render = function() {
                   { staticClass: "block" },
                   [
                     _c("el-pagination", {
-                      attrs: { layout: "prev, pager, next", total: _vm.total },
+                      attrs: {
+                        layout: "prev, pager, next",
+                        total: _vm.total,
+                        "page-size": _vm.pagesize,
+                        "current-page": _vm.page
+                      },
                       on: { "current-change": _vm.paginateChange }
                     })
                   ],

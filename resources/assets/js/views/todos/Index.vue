@@ -45,6 +45,8 @@
                         layout="prev, pager, next"
                         :total=total
                         @current-change="paginateChange"
+                        :page-size="pagesize"
+                        :current-page="page"
                         >
                     </el-pagination>
                 </div>
@@ -62,6 +64,8 @@ export default {
             error: null,
             total: 0,
             path: null,
+            page: 1,
+            pagesize: 3,
         };
     },
     created() {
@@ -72,28 +76,32 @@ export default {
             this.error = this.todos = null;
             this.loading = true;
             axios
-                .get("/api/todos")
+                .get("/api/todos", {params: {
+                    page: this.page
+                }})
                 .then(response => {
                     this.loading =false;
                     this.todos = response.data.data;
                     this.total = response.data.total;
                     this.path = response.data.path;
+                    this.pagesize = response.data.per_page;
+
                  }).catch(error => {
                      this.loading = false;
                      this.error = error.response.data.message || error.message;
                  })
         },
         paginateChange(val) {
-            console.log(val);
-
+            this.page = val;
+            this.fetchData()
         },
         completedChange(id, val) {
           const url = "api/todos/" + id;
           axios.put(url, {status: val})
             .then(response => {
-              console.log(response.data);
+              this.$message(response.data.msg)
             }).catch(error => {
-              console.log("hehehe");
+              //TODO
             });
         }
     }

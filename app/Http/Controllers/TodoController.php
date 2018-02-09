@@ -56,7 +56,17 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        dd($todo);
+       $status = $request->get("status") ? $request->get("status") : 0;
+       $todo->is_completed = $status;
+       $result = [];
+       $message = $status ? "任务完成" : "任务重启";
+       try{
+           $todo->save();
+           $result = ['code' => 0, 'status' => TRUE, 'msg'=>$message, 'res'=>[$todo->toArray()]];
+       }catch(Exception $e){
+           $result = ['code' => 0, 'status' => FALSE, 'msg'=>"更新失败", 'res'=>[]];
+       }
+       return response()->json($result);
     }
 
     /**
