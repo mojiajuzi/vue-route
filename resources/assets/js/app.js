@@ -14,6 +14,8 @@ import UsersIndex from './views/UserIndex';
 import TodoCreate from './views/todos/Create';
 import TodoIndex from './views/todos/Index';
 
+import ChatIndex from './views/chat/Index';
+
 const router = new VueRouter({
     mode: 'history',
     routes: [
@@ -41,6 +43,11 @@ const router = new VueRouter({
             path: "/todos",
             name: "todos.index",
             component: TodoIndex
+        },
+        {
+            path: "/chat",
+            name: "chat",
+            component: ChatIndex
         }
     ],
 });
