@@ -12,3 +12,6 @@
 */
 
 Route::get("/{any}", 'SpaController@index')->where("any", ".*");
+Route::get("/authorize", "OauthController@hpauthorize");
+Route::get("/access", "OauthController@hpaccesToken");
+Route::get("/toekn", "OauthController@hpToekn");

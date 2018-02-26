@@ -8,8 +8,7 @@ Vue.use(VueRouter)
 Vue.use(ElementUI)
 
 import App from './views/App';
-import Hello from  './views/Hello';
-import Home from './views/Home';
+import MoneyCatery from './views/cost/Create';
 import UsersIndex from './views/UserIndex';
 import TodoCreate from './views/todos/Create';
 import TodoIndex from './views/todos/Index';
@@ -19,16 +18,6 @@ import ChatIndex from './views/chat/Index';
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        {
-            path: "/",
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/hello',
-            name: 'hello',
-            component: Hello
-        },
         {
             path: '/users',
             name: 'users.index',
@@ -48,6 +37,11 @@ const router = new VueRouter({
             path: "/chat",
             name: "chat",
             component: ChatIndex
+        },
+        {
+            path: "/cost/create",
+            name: "cost.create",
+            component: MoneyCatery
         }
     ],
 });
